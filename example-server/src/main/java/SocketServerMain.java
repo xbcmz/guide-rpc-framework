@@ -1,7 +1,7 @@
-import github.javaguide.HelloService;
+import github.javaguide.ContractService;
 import github.javaguide.config.RpcServiceConfig;
 import github.javaguide.remoting.transport.socket.SocketRpcServer;
-import github.javaguide.serviceimpl.HelloServiceImpl;
+import github.javaguide.serviceimpl.AtlasContractServiceImpl;
 
 /**
  * @author shuang.kou
@@ -9,10 +9,10 @@ import github.javaguide.serviceimpl.HelloServiceImpl;
  */
 public class SocketServerMain {
     public static void main(String[] args) {
-        HelloService helloService = new HelloServiceImpl();
+        ContractService contractService = new AtlasContractServiceImpl();
         SocketRpcServer socketRpcServer = new SocketRpcServer();
         RpcServiceConfig rpcServiceConfig = new RpcServiceConfig();
-        rpcServiceConfig.setService(helloService);
+        rpcServiceConfig.setService(contractService);
         socketRpcServer.registerService(rpcServiceConfig);
         socketRpcServer.start();
     }
