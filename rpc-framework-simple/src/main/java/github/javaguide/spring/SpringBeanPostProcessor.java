@@ -8,7 +8,7 @@ import github.javaguide.extension.ExtensionLoader;
 import github.javaguide.factory.SingletonFactory;
 import github.javaguide.provider.ServiceProvider;
 import github.javaguide.provider.impl.ZkServiceProviderImpl;
-import github.javaguide.proxy.RpcClientProxy;
+import github.javaguide.proxy.HxsRpcClientProxy;
 import github.javaguide.remoting.transport.RpcRequestTransport;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +19,12 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 
 /**
- * call this method before creating the bean to see if the class is annotated
- *
- * @author shuang.kou
- * @createTime 2020年07月14日 16:42:00
+ * 在Spring Bean初始化之前，将带有@RpcService注解的类注册到Zookeeper
+ * 在Spring Bean初始化之后，为带有@RpcReference注解的属性注入代理对象
  */
 @Slf4j
 @Component
 public class SpringBeanPostProcessor implements BeanPostProcessor {
-
     private final ServiceProvider serviceProvider;
     private final RpcRequestTransport rpcClient;
 
@@ -63,7 +60,7 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
                 RpcServiceConfig rpcServiceConfig = RpcServiceConfig.builder()
                         .group(rpcReference.group())
                         .version(rpcReference.version()).build();
-                RpcClientProxy rpcClientProxy = new RpcClientProxy(rpcClient, rpcServiceConfig);
+                HxsRpcClientProxy rpcClientProxy = new HxsRpcClientProxy(rpcClient, rpcServiceConfig);
                 Object clientProxy = rpcClientProxy.getProxy(declaredField.getType());
                 declaredField.setAccessible(true);
                 try {
@@ -72,7 +69,6 @@ public class SpringBeanPostProcessor implements BeanPostProcessor {
                     e.printStackTrace();
                 }
             }
-
         }
         return bean;
     }

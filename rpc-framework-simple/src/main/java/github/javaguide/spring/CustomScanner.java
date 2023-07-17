@@ -7,10 +7,7 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import java.lang.annotation.Annotation;
 
 /**
- * custom package scanner
- *
- * @author shuang.kou
- * @createTime 2020年08月10日 21:42:00
+ * 自定义扫描器
  */
 public class CustomScanner extends ClassPathBeanDefinitionScanner {
 

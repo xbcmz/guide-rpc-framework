@@ -1,7 +1,7 @@
 import github.javaguide.ContractService;
 import github.javaguide.config.RpcServiceConfig;
 import github.javaguide.remoting.transport.socket.SocketRpcServer;
-import github.javaguide.serviceimpl.AtlasContractServiceImpl;
+import github.javaguide.serviceimpl.LkgContractServiceImpl;
 
 /**
  * @author shuang.kou
@@ -9,7 +9,7 @@ import github.javaguide.serviceimpl.AtlasContractServiceImpl;
  */
 public class SocketServerMain {
     public static void main(String[] args) {
-        ContractService contractService = new AtlasContractServiceImpl();
+        ContractService contractService = new LkgContractServiceImpl();
         SocketRpcServer socketRpcServer = new SocketRpcServer();
         RpcServiceConfig rpcServiceConfig = new RpcServiceConfig();
         rpcServiceConfig.setService(contractService);

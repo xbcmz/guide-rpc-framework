@@ -13,10 +13,7 @@ import org.springframework.core.type.StandardAnnotationMetadata;
 import org.springframework.stereotype.Component;
 
 /**
- * scan and filter specified annotations
- *
- * @author shuang.kou
- * @createTime 2020年08月10日 22:12:00
+ * 扫描自定义注解 加载到spring容器中
  */
 @Slf4j
 public class CustomScannerRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
@@ -27,12 +24,11 @@ public class CustomScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
-
     }
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        //get the attributes and values ​​of RpcScan annotation
+        //get the attributes and values of RpcScan annotation
         AnnotationAttributes rpcScanAnnotationAttributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(RpcScan.class.getName()));
         String[] rpcScanBasePackages = new String[0];
         if (rpcScanAnnotationAttributes != null) {
